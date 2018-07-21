@@ -7,7 +7,7 @@
     "csv",
     "custom line endings",
     "iterator csv",
-    "pause / resume csv"
+    "pause or resume via tell and seek"
   ],
   "require": {
     "php": "~7.0"
