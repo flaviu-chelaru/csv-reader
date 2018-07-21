@@ -1,0 +1,18 @@
+{
+  "name": "cfv1000/csv-reader",
+  "description": "Another PHP csv reader",
+  "keywords": [
+    "csv",
+    "custom line endings",
+    "iterator csv",
+    "pause / resume csv"
+  ],
+  "require": {
+    "php": "~7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "cfv1000\\CsvReader\\": "src/"
+    }
+  }
+}
