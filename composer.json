@@ -1,6 +1,8 @@
 {
   "name": "cfv1000/csv-reader",
   "description": "Another PHP csv reader",
+  "type": "library",
+  "license": "MIT",
   "keywords": [
     "csv",
     "custom line endings",
