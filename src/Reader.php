@@ -82,7 +82,7 @@ class Reader implements Iterator
         $line = explode($this->columnSeparator, $buffer);
 
         return array_map(function ($item) {
-            return trim($item, " \t\n\r\0\x0B" . $this->enclosure);
+            return trim($item, " \t\n\r\0\x0B\xEF\xBB\xBF" . $this->enclosure);
         }, $line);
     }
 
