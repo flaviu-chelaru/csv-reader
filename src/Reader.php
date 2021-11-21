@@ -127,7 +127,7 @@ class Reader implements Iterator, Countable
      */
     public function count()
     {
-        $this->file->fseek(PHP_INT_MAX);
+        $this->file->seek(PHP_INT_MAX);
         return $this->file->key();
     }
 }
