@@ -2,11 +2,12 @@
 
 namespace cfv1000\CsvReader;
 
+use Countable;
 use Iterator;
 use SplFileObject;
 use SplFileInfo;
 
-class Reader implements Iterator
+class Reader implements Iterator, Countable
 {
     /**
      * @var SplFileObject
@@ -117,5 +118,16 @@ class Reader implements Iterator
     public function tell(): int
     {
         return $this->file->ftell();
+    }
+
+    /**
+     * Will return number of lines in the file
+     * File cursor will be set to the end of file for it (rewind is required if you want to loop through it)
+     * @return int
+     */
+    public function count()
+    {
+        $this->file->fseek(PHP_INT_MAX);
+        return $this->file->key();
     }
 }
