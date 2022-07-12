@@ -66,7 +66,7 @@ class Reader implements Iterator, Countable
 
     public function next()
     {
-        ++$this->key;
+        $this->file->next();
     }
 
     /**
@@ -92,12 +92,12 @@ class Reader implements Iterator, Countable
      */
     public function key(): int
     {
-        return $this->key;
+        return $this->file->key();
     }
 
     public function rewind()
     {
-        $this->key = 0;
+        $this->file->rewind();
     }
 
     /**
