@@ -64,7 +64,7 @@ class Reader implements Iterator, Countable
         return !$this->file->eof();
     }
 
-    public function next()
+    public function next(): void
     {
         $this->file->next();
     }
@@ -95,7 +95,7 @@ class Reader implements Iterator, Countable
         return $this->file->key();
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->file->rewind();
     }
@@ -105,7 +105,7 @@ class Reader implements Iterator, Countable
      *
      * @param int $offset
      */
-    public function seek(int $offset)
+    public function seek(int $offset): void
     {
         $this->file->fseek($offset);
     }
@@ -125,7 +125,7 @@ class Reader implements Iterator, Countable
      * File cursor will be set to the end of file for it (rewind is required if you want to loop through it)
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         $this->file->seek(PHP_INT_MAX);
         return $this->file->key();
