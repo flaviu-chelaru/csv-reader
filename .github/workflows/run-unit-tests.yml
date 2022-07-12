@@ -1,0 +1,24 @@
+name: phpunit
+on:
+    push:
+        branches:
+            - master
+            - feature/workflows
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php-versions: ['7.4', '8.0', '8.1']
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-progress --no-suggest
+
+            -   name: PHPUnit
+                uses: php-actions/phpunit@v3
+                with:
+                    configuration: ./phpunit.dist.xml
+                    php_extensions: xdebug
+                    php_version: ${{ matrix.php-versions }}
