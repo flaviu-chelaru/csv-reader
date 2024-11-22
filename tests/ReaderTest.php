@@ -8,7 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class ReaderTest extends TestCase
 {
-    public function setUp(): void
+    public $root;
+
+    protected function setUp(): void
     {
         $this->root = vfsStream::setup('data', 0, [
             'csv' => [
@@ -29,7 +31,7 @@ class ReaderTest extends TestCase
             ]
         ]);
     }
-    
+
     /**
      * Configurations on column separators
      */
@@ -48,7 +50,6 @@ class ReaderTest extends TestCase
     }
 
     /**
-     * @return void
      * @dataProvider columnLineSeparatorDataProvider
      */
     public function testReader(string $file, string $columnSeparator): void
@@ -60,7 +61,6 @@ class ReaderTest extends TestCase
     }
 
     /**
-     * @return void
      * @dataProvider columnLineSeparatorDataProvider
      */
     public function testKey(string $file, string $columnSeparator): void
@@ -68,13 +68,10 @@ class ReaderTest extends TestCase
         $reader = new Reader($this->root->url() . $file, $columnSeparator);
         $reader->next();
         $reader->next();
-        
+
         $this->assertSame(3, $reader->key());        
     }
 
-    /**
-     * @return void
-     */
     public function testCount(): void
     {
         $reader = new Reader($this->root->url() . '/csv/file01.csv');
@@ -82,7 +79,6 @@ class ReaderTest extends TestCase
     }
 
     /**
-     * @return void
      * @dataProvider columnLineSeparatorDataProvider
      */
     public function testRewind(string $file, string $columnSeparator): void
@@ -92,12 +88,8 @@ class ReaderTest extends TestCase
         $this->assertSame(['A2', 'B2', 'C2'], $reader->current());
         $reader->rewind();
         $this->assertSame(['A1', 'B1', 'C1'], $reader->current());
-        
     }
 
-    /**
-     * @return void
-     */
     public function testTell(): void
     {
         $reader = new Reader($this->root->url() . '/csv/file01.csv');
@@ -108,13 +100,11 @@ class ReaderTest extends TestCase
         $this->assertSame(20, $reader->tell());
     }
 
-    /**
-     * @return void
-     */
     public function testSeekLines(): void
     {
         $reader = new Reader($this->root->url() . '/csv/file01.csv');
         $reader->seek(30);
+
         $data = $reader->current();
         $this->assertSame(['A4', 'B4', 'C4'], $data);
     }

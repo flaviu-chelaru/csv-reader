@@ -15,11 +15,6 @@ class Reader implements Iterator, Countable
     private $file;
 
     /**
-     * @var int
-     */
-    private $key = 0;
-
-    /**
      * @var string
      */
     private $columnSeparator;
@@ -39,7 +34,6 @@ class Reader implements Iterator, Countable
     /**
      * Reader constructor.
      *
-     * @param string $file
      * @param string $columnSeparator
      * @param string $enclosure
      * @param string $lineSeparator
@@ -56,9 +50,6 @@ class Reader implements Iterator, Countable
         $this->next();
     }
 
-    /**
-     * @return bool
-     */
     public function valid(): bool
     {
         return !$this->file->eof();
@@ -82,14 +73,11 @@ class Reader implements Iterator, Countable
 
         $line = explode($this->columnSeparator, $buffer);
 
-        return array_map(function ($item) {
+        return array_map(function ($item): string {
             return trim($item, " \t\n\r\0\x0B\xEF\xBB\xBF" . $this->enclosure);
         }, $line);
     }
 
-    /**
-     * @return int
-     */
     public function key(): int
     {
         return $this->file->key();
@@ -102,8 +90,6 @@ class Reader implements Iterator, Countable
 
     /**
      * Jump to $offset file pointer
-     *
-     * @param int $offset
      */
     public function seek(int $offset): void
     {
@@ -112,8 +98,6 @@ class Reader implements Iterator, Countable
 
     /**
      * Return current file pointer
-     *
-     * @return int
      */
     public function tell(): int
     {
@@ -123,7 +107,6 @@ class Reader implements Iterator, Countable
     /**
      * Will return number of lines in the file
      * File cursor will be set to the end of file for it (rewind is required if you want to loop through it)
-     * @return int
      */
     public function count(): int
     {
