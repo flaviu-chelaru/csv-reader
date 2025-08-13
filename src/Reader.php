@@ -111,6 +111,6 @@ class Reader implements Iterator, Countable
     public function count(): int
     {
         $this->file->seek(PHP_INT_MAX);
-        return $this->file->key();
+        return $this->file->key() + 1;
     }
 }

@@ -75,7 +75,7 @@ class ReaderTest extends TestCase
     public function testCount(): void
     {
         $reader = new Reader($this->root->url() . '/csv/file01.csv');
-        $this->assertSame(4, $reader->count());
+        $this->assertSame(5, $reader->count());
     }
 
     /**
