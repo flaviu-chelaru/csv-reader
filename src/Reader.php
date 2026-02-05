@@ -9,27 +9,7 @@ use SplFileInfo;
 
 class Reader implements Iterator, Countable
 {
-    /**
-     * @var SplFileObject
-     */
-    private $file;
-
-    /**
-     * @var string
-     */
-    private $columnSeparator;
-
-    /**
-     * @var string
-     */
-    private $lineSeparator;
-
-    /**
-     * Column enclosure character
-     *
-     * @var string
-     */
-    private $enclosure;
+    private readonly \SplFileObject $file;
 
     /**
      * Reader constructor.
@@ -38,14 +18,13 @@ class Reader implements Iterator, Countable
      * @param string $enclosure
      * @param string $lineSeparator
      */
-    public function __construct(string $file, $columnSeparator = ',', $enclosure = '', $lineSeparator = PHP_EOL)
+    public function __construct(string $file, private string $columnSeparator = ',', /**
+     * Column enclosure character
+     */
+    private string $enclosure = '', private string $lineSeparator = PHP_EOL)
     {
         $fileInfo = new SplFileInfo($file);
         $this->file = $fileInfo->openFile('rb+');
-
-        $this->columnSeparator = $columnSeparator;
-        $this->lineSeparator = $lineSeparator;
-        $this->enclosure = $enclosure;
 
         $this->next();
     }
@@ -73,9 +52,7 @@ class Reader implements Iterator, Countable
 
         $line = explode($this->columnSeparator, $buffer);
 
-        return array_map(function ($item): string {
-            return trim($item, " \t\n\r\0\x0B\xEF\xBB\xBF" . $this->enclosure);
-        }, $line);
+        return array_map(fn($item): string => trim($item, " \t\n\r\0\x0B\xEF\xBB\xBF" . $this->enclosure), $line);
     }
 
     public function key(): int

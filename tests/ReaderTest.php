@@ -14,14 +14,14 @@ class ReaderTest extends TestCase
     {
         $this->root = vfsStream::setup('data', 0, [
             'csv' => [
-                'file01.csv' => implode(PHP_EOL, [
+                'file01.csv' => implode("\n", [
                     'A1,B1,C1',
                     'A2,B2,C2',
                     'A3,B3,C3',
                     'A4,B4,C4',
                     'A5,B5,C5',
                 ]),
-                'file02.csv' => implode(PHP_EOL, [
+                'file02.csv' => implode("\n", [
                     'A1|B1|C1',
                     'A2|B2|C2',
                     'A3|B3|C3',
@@ -35,55 +35,49 @@ class ReaderTest extends TestCase
     /**
      * Configurations on column separators
      */
-    public function columnLineSeparatorDataProvider(): array
+    public static function columnLineSeparatorDataProvider(): array
     {
         return [
             'initial file' => [
                 'file' => '/csv/file01.csv',
-                'column separator' => ',',
+                'columnSeparator' => ',',
             ],
             'pipe column separator' => [
                 'file' => '/csv/file02.csv',
-                'column separator' => '|'
+                'columnSeparator' => '|'
             ]
         ];
     }
 
-    /**
-     * @dataProvider columnLineSeparatorDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('columnLineSeparatorDataProvider')]
     public function testReader(string $file, string $columnSeparator): void
     {
-        $reader = new Reader($this->root->url() . $file, $columnSeparator);
+        $reader = new Reader($this->root->url() . $file, $columnSeparator, '', "\n");
         $data = $reader->current();
         $this->assertSame(['A1', 'B1', 'C1'], $data);
         $this->assertSame(1, $reader->key());
     }
 
-    /**
-     * @dataProvider columnLineSeparatorDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('columnLineSeparatorDataProvider')]
     public function testKey(string $file, string $columnSeparator): void
     {
-        $reader = new Reader($this->root->url() . $file, $columnSeparator);
+        $reader = new Reader($this->root->url() . $file, $columnSeparator, '', "\n");
         $reader->next();
         $reader->next();
 
-        $this->assertSame(3, $reader->key());        
+        $this->assertSame(3, $reader->key());
     }
 
     public function testCount(): void
     {
-        $reader = new Reader($this->root->url() . '/csv/file01.csv');
+        $reader = new Reader($this->root->url() . '/csv/file01.csv', ',', '', "\n");
         $this->assertSame(5, $reader->count());
     }
 
-    /**
-     * @dataProvider columnLineSeparatorDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('columnLineSeparatorDataProvider')]
     public function testRewind(string $file, string $columnSeparator): void
     {
-        $reader = new Reader($this->root->url() . $file, $columnSeparator);
+        $reader = new Reader($this->root->url() . $file, $columnSeparator, '', "\n");
         $this->assertSame(['A1', 'B1', 'C1'], $reader->current());
         $this->assertSame(['A2', 'B2', 'C2'], $reader->current());
         $reader->rewind();
@@ -92,18 +86,18 @@ class ReaderTest extends TestCase
 
     public function testTell(): void
     {
-        $reader = new Reader($this->root->url() . '/csv/file01.csv');
+        $reader = new Reader($this->root->url() . '/csv/file01.csv', ',', '', "\n");
         $this->assertSame(0, $reader->tell());
         $reader->current();
-        $this->assertSame(10, $reader->tell());
+        $this->assertSame(9, $reader->tell());
         $reader->current();
-        $this->assertSame(20, $reader->tell());
+        $this->assertSame(18, $reader->tell());
     }
 
     public function testSeekLines(): void
     {
-        $reader = new Reader($this->root->url() . '/csv/file01.csv');
-        $reader->seek(30);
+        $reader = new Reader($this->root->url() . '/csv/file01.csv', ',', '', "\n");
+        $reader->seek(27);
 
         $data = $reader->current();
         $this->assertSame(['A4', 'B4', 'C4'], $data);

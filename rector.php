@@ -16,4 +16,6 @@ return RectorConfig::configure()
         \Rector\Set\ValueObject\SetList::TYPE_DECLARATION,
         \Rector\Set\ValueObject\SetList::EARLY_RETURN,
         \Rector\Set\ValueObject\SetList::DEAD_CODE,
+        \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_120,
+        \Rector\PHPUnit\Set\PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
     ]);
