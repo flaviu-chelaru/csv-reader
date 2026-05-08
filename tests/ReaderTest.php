@@ -10,6 +10,9 @@ class ReaderTest extends TestCase
 {
     public $root;
 
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     protected function setUp(): void
     {
         $this->root = vfsStream::setup('data', 0, [
