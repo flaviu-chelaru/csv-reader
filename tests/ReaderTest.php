@@ -69,7 +69,7 @@ class ReaderTest extends TestCase
         $reader->next();
         $reader->next();
 
-        $this->assertSame(3, $reader->key());        
+        $this->assertSame(3, $reader->key());
     }
 
     public function testCount(): void
@@ -92,18 +92,20 @@ class ReaderTest extends TestCase
 
     public function testTell(): void
     {
+        $rowBytes = 8 + strlen(PHP_EOL);
         $reader = new Reader($this->root->url() . '/csv/file01.csv');
         $this->assertSame(0, $reader->tell());
         $reader->current();
-        $this->assertSame(10, $reader->tell());
+        $this->assertSame($rowBytes, $reader->tell());
         $reader->current();
-        $this->assertSame(20, $reader->tell());
+        $this->assertSame($rowBytes * 2, $reader->tell());
     }
 
     public function testSeekLines(): void
     {
+        $rowBytes = 8 + strlen(PHP_EOL);
         $reader = new Reader($this->root->url() . '/csv/file01.csv');
-        $reader->seek(30);
+        $reader->seek($rowBytes * 3);
 
         $data = $reader->current();
         $this->assertSame(['A4', 'B4', 'C4'], $data);
