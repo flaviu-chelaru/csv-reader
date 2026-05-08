@@ -1,3 +1,13 @@
+[![Tests](https://github.com/flaviu-chelaru/csv-reader/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/flaviu-chelaru/csv-reader/actions/workflows/tests.yml)
+[![Latest Stable Version](https://img.shields.io/packagist/v/cfv1000/csv-reader.svg?style=flat-square&label=stable)](https://packagist.org/packages/cfv1000/csv-reader)
+[![PHP Version Require](https://img.shields.io/packagist/dependency-v/cfv1000/csv-reader/php?style=flat-square)](https://packagist.org/packages/cfv1000/csv-reader)
+[![Total Downloads](https://img.shields.io/packagist/dt/cfv1000/csv-reader.svg?style=flat-square)](https://packagist.org/packages/cfv1000/csv-reader)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/cfv1000/csv-reader.svg?style=flat-square)](https://packagist.org/packages/cfv1000/csv-reader)
+[![License](https://img.shields.io/packagist/l/cfv1000/csv-reader.svg?style=flat-square)](https://github.com/flaviu-chelaru/csv-reader/blob/master/LICENSE)
+[![PHPUnit](https://img.shields.io/badge/PHPUnit-9.5-blue.svg?style=flat-square&logo=php)](https://phpunit.de/)
+[![Rector](https://img.shields.io/badge/Rector-1.2-blueviolet.svg?style=flat-square)](https://getrector.com/)
+[![PSR-4](https://img.shields.io/badge/PSR--4-autoload-brightgreen.svg?style=flat-square)](https://www.php-fig.org/psr/psr-4/)
+
 # 🚀 Why Use This Class?
 This class is a solid choice for several reasons:
 
